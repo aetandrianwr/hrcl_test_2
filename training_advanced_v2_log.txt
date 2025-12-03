@@ -1,0 +1,11 @@
+Epoch   1 | Loss: 4.5076 | Val acc@1 (X): 5.19% | acc@5: 5.37% | MRR: 5.48%
+✓ NEW BEST: 5.19%
+Epoch   2 | Loss: 4.2534 | Val acc@1 (X): 11.13% | acc@5: 11.13% | MRR: 11.37%
+✓ NEW BEST: 11.13%
+Epoch   3 | Loss: 3.9052 | Val acc@1 (X): 12.21% | acc@5: 12.21% | MRR: 12.45%
+✓ NEW BEST: 12.21%
+Epoch   4 | Loss: 3.7907 | Val acc@1 (X): 16.53% | acc@5: 16.59% | MRR: 16.76%
+✓ NEW BEST: 16.53%
+Epoch   5 | Loss: 3.7406 | Val acc@1 (X): 18.81% | acc@5: 18.96% | MRR: 19.08%
+✓ NEW BEST: 18.81%
+Epoch   6 | Loss: 3.7035 | Val acc@1 (X): 18.78% | acc@5: 18.93% | MRR: 19.05%

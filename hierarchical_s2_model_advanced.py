@@ -44,27 +44,47 @@ class UserContextualFeatures(nn.Module):
         B, T = X_seq.shape
         device = X_seq.device
         
+        # VECTORIZED IMPLEMENTATION
         # 1. FREQUENCY: one-hot count of each location
-        freq_dist = torch.zeros(B, self.vocab_size, device=device)
-        for b in range(B):
-            for t in range(T):
-                if padding_mask is None or not padding_mask[b, t]:
-                    loc = X_seq[b, t].item()
-                    freq_dist[b, loc] += 1.0
+        # Create one-hot encoding: [B, T, vocab_size]
+        one_hot = F.one_hot(X_seq, num_classes=self.vocab_size).float()  # [B, T, V]
+        
+        # Apply padding mask if provided
+        if padding_mask is not None:
+            # padding_mask is True for padding, False for valid
+            mask = (~padding_mask).unsqueeze(-1).float()  # [B, T, 1]
+            one_hot = one_hot * mask
+        
+        # Sum across time dimension to get frequency distribution
+        freq_dist = one_hot.sum(dim=1)  # [B, V]
         
         # Normalize
         total_counts = freq_dist.sum(dim=1, keepdim=True) + 1e-8
         freq_dist = freq_dist / total_counts
         
         # 2. RECENCY: exponentially weighted by position (recent = higher)
-        recency_dist = torch.zeros(B, self.vocab_size, device=device)
-        for b in range(B):
-            seq_len = T if padding_mask is None else int((~padding_mask[b]).sum().item())
-            for t in range(seq_len):
-                loc = X_seq[b, t].item()
-                # Weight by recency: more recent = higher weight
-                weight = float(self.recency_decay.item() ** (seq_len - t - 1))
-                recency_dist[b, loc] += weight
+        # Create position-based weights: more recent = higher weight
+        # positions: [T] -> [0, 1, 2, ..., T-1]
+        positions = torch.arange(T, device=device).float()  # [T]
+        
+        # Calculate sequence lengths
+        if padding_mask is not None:
+            seq_lens = (~padding_mask).sum(dim=1).float()  # [B]
+        else:
+            seq_lens = torch.full((B,), T, dtype=torch.float, device=device)  # [B]
+        
+        # Recency weights: decay^(seq_len - pos - 1)
+        # Expand for broadcasting: positions [1, T], seq_lens [B, 1]
+        decay_power = seq_lens.unsqueeze(1) - positions.unsqueeze(0) - 1  # [B, T]
+        recency_weights = self.recency_decay ** decay_power  # [B, T]
+        
+        # Apply padding mask
+        if padding_mask is not None:
+            recency_weights = recency_weights * (~padding_mask).float()
+        
+        # Weighted one-hot: [B, T, V] * [B, T, 1]
+        weighted_one_hot = one_hot * recency_weights.unsqueeze(-1)  # [B, T, V]
+        recency_dist = weighted_one_hot.sum(dim=1)  # [B, V]
         
         # Normalize
         total_recency = recency_dist.sum(dim=1, keepdim=True) + 1e-8
@@ -262,13 +282,19 @@ class AdvancedHierarchicalS2Model(nn.Module):
         # Attend to history
         attended_history, copy_weights = self.copy_attn(final_state, gru_out, gru_out, mask=padding_mask)
         
-        # Build copy distribution from attention weights
+        # Build copy distribution from attention weights - VECTORIZED
+        # Use scatter_add to accumulate attention weights for each location
         copy_dist = torch.zeros(B, self.vocab_X, device=device)
-        for b in range(B):
-            for t in range(T):
-                if padding_mask is None or not padding_mask[b, t]:
-                    loc = X_seq[b, t].item()
-                    copy_dist[b, loc] += copy_weights[b, t].item()
+        
+        # Mask out padding positions in copy_weights
+        if padding_mask is not None:
+            masked_copy_weights = copy_weights.masked_fill(padding_mask, 0.0)  # [B, T]
+        else:
+            masked_copy_weights = copy_weights
+        
+        # scatter_add_: accumulate weights at indices specified by X_seq
+        # X_seq: [B, T], masked_copy_weights: [B, T]
+        copy_dist.scatter_add_(1, X_seq, masked_copy_weights)
         
         # Combine: user context + frequency + recency
         copy_dist = copy_dist + 0.3 * freq_dist + 0.2 * recency_dist
@@ -304,27 +330,37 @@ class AdvancedHierarchicalS2Model(nn.Module):
         
         # === HIERARCHICAL CANDIDATE FILTERING (if enabled) ===
         if use_filtering and hierarchy_map is not None:
+            # VECTORIZED FILTERING
             # Use predicted L11 to filter X candidates
             pred_l11 = torch.argmax(logits_l11, dim=-1)  # [B]
             
+            # Pre-build filtering masks (this can be cached but for correctness we build it here)
+            # Create a mask tensor [B, vocab_X] where True = valid candidate
+            filter_mask = torch.zeros(B, self.vocab_X, dtype=torch.bool, device=device)
+            
+            # For each sample in batch, mark valid X locations
             for b in range(B):
                 l11_pred = pred_l11[b].item()
                 
                 # Get valid X locations under this L11
-                valid_X = set()
+                valid_X = []
                 if l11_pred in hierarchy_map['s2_level11_to_13']:
                     for l13 in hierarchy_map['s2_level11_to_13'][l11_pred]:
                         if l13 in hierarchy_map['s2_level13_to_14']:
                             for l14 in hierarchy_map['s2_level13_to_14'][l13]:
                                 if l14 in hierarchy_map['s2_level14_to_X']:
-                                    valid_X.update(hierarchy_map['s2_level14_to_X'][l14])
+                                    valid_X.extend(hierarchy_map['s2_level14_to_X'][l14])
                 
-                # Mask out invalid candidates
+                # Mark valid candidates
                 if len(valid_X) > 0:
-                    mask = torch.ones(self.vocab_X, device=device) * (-1e9)
-                    for x in valid_X:
-                        mask[x] = 0.0
-                    logits_X[b] = logits_X[b] + mask
+                    valid_X_tensor = torch.tensor(valid_X, dtype=torch.long, device=device)
+                    filter_mask[b, valid_X_tensor] = True
+                else:
+                    # If no valid candidates found, allow all (fallback)
+                    filter_mask[b, :] = True
+            
+            # Apply mask: set invalid candidates to -inf
+            logits_X = torch.where(filter_mask, logits_X, torch.tensor(-1e9, device=device))
         
         return {
             'logits_l11': logits_l11,
