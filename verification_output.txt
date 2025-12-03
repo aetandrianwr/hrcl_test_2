@@ -1,0 +1,28 @@
+================================================================================
+AUTOMATED RESULTS REPRODUCTION
+================================================================================
+Device: cuda
+Random seed: 42
+
+Loading data...
+
+================================================================================
+EVALUATION PHASE
+================================================================================
+
+================================================================================
+EVALUATING MODEL V1 (BASELINE)
+================================================================================
+Loaded model from epoch 16
+Parameters: 596,970
+Testing:   0%|                                                                                  | 0/55 [00:00<?, ?it/s]Testing:   0%|                                                                                  | 0/55 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/data/hrcl_test_2/reproduce_results.py", line 541, in <module>
+    main()
+  File "/data/hrcl_test_2/reproduce_results.py", line 482, in main
+    perf_v1 = evaluate_baseline(device, test_loader, hierarchy_map)
+  File "/data/hrcl_test_2/reproduce_results.py", line 330, in evaluate_baseline
+    outputs = model(l11_seq, l13_seq, l14_seq, X_seq, user_seq, padding_mask)
+  File "/root/miniconda3/envs/mlenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+TypeError: forward() takes from 5 to 6 positional arguments but 7 were given

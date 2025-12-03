@@ -1,0 +1,29 @@
+Using device: cuda
+
+COPY MECHANISM MODEL
+Parameters: 659,039 / 700,000
+Budget remaining: 40,961
+
+Loading data...
+
+================================================================================
+TRAINING WITH COPY MECHANISM + USER EMBEDDINGS
+Pattern exploitation: 75% targets in history, User-location affinity
+================================================================================
+Epoch 1:   0%|                                                                                 | 0/116 [00:00<?, ?it/s]Epoch 1:   0%|                                                                                 | 0/116 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/data/hrcl_test_2/train_copy.py", line 231, in <module>
+    final_acc = main()
+  File "/data/hrcl_test_2/train_copy.py", line 153, in main
+    train_loss, train_loss_X = train_epoch(
+  File "/data/hrcl_test_2/train_copy.py", line 50, in train_epoch
+    outputs = model(l11_seq, l13_seq, l14_seq, X_seq, user_seq, padding_mask)
+  File "/root/miniconda3/envs/mlenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/hrcl_test_2/hierarchical_s2_model_copy.py", line 195, in forward
+    l11_hidden = self.shared_transformer(self.pos_encoder(self.emb_l11(l11_seq)), src_key_padding_mask=padding_mask)
+  File "/root/miniconda3/envs/mlenv/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/data/hrcl_test_2/hierarchical_s2_model_copy.py", line 18, in forward
+    return x + self.pe[:x.size(1), :].unsqueeze(0)
+RuntimeError: The size of tensor a (28) must match the size of tensor b (112) at non-singleton dimension 2
