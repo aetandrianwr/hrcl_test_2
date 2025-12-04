@@ -1,46 +1,19 @@
+============================================================
+VECTORIZATION CORRECTNESS TESTS
+============================================================
+Testing frequency vectorization...
+  Max difference: 0.00e+00
+  ✓ Frequency vectorization correct!
 
-================================================================================
-  HIERARCHICAL S2 LOCATION PREDICTION - QUICK VERIFICATION
-================================================================================
+Testing recency vectorization...
+  Max difference: 2.98e-08
+  ✓ Recency vectorization correct!
 
-Using device: cuda
+Testing filtering vectorization...
+  Max difference: 0.00e+00
+  ✓ Filtering vectorization correct!
 
-Loading datasets...
-✓ Test set loaded: 3502 samples
-
---------------------------------------------------------------------------------
-  BASELINE V1
---------------------------------------------------------------------------------
-Config: d_model=80, nhead=4
-Parameters: 596,970 / 700,000
-✗ Error loading Baseline V1: forward() takes from 5 to 6 positional arguments but 7 were given
-
---------------------------------------------------------------------------------
-  ADVANCED MODEL (WITHOUT hierarchical filtering)
---------------------------------------------------------------------------------
-Config: d_model=96, nhead=4, dropout=0.25
-Parameters: 620,808 / 700,000
-
-================================================================================
-  ADVANCED (NO FILTER) TEST RESULTS
-================================================================================
-✗ Error loading Advanced: 'acc@1'
-
-================================================================================
-  SUMMARY OF RESULTS
-================================================================================
-
-Model                          | acc@1    | acc@5    | MRR     
---------------------------------------------------------------------------------
-
-================================================================================
-  EXPECTED RESULTS:
-================================================================================
-  Baseline V1:           ~31.70% acc@1
-  Advanced (no filter):  ~46.94% acc@1  ← BEST MODEL
-================================================================================
-
-✓ Results saved to verification_report.json
-✓ Verification complete!
-
+============================================================
+✓ ALL VECTORIZATION TESTS PASSED!
+============================================================
 

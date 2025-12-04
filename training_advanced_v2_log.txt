@@ -1,11 +1,76 @@
-Epoch   1 | Loss: 4.5076 | Val acc@1 (X): 5.19% | acc@5: 5.37% | MRR: 5.48%
+Epoch   1 | Loss: 4.5074 | Val acc@1 (X): 5.19% | acc@5: 5.31% | MRR: 5.48%
 ✓ NEW BEST: 5.19%
-Epoch   2 | Loss: 4.2534 | Val acc@1 (X): 11.13% | acc@5: 11.13% | MRR: 11.37%
+Epoch   2 | Loss: 4.2538 | Val acc@1 (X): 10.92% | acc@5: 10.92% | MRR: 11.16%
+✓ NEW BEST: 10.92%
+Epoch   3 | Loss: 3.9050 | Val acc@1 (X): 11.13% | acc@5: 11.16% | MRR: 11.37%
 ✓ NEW BEST: 11.13%
-Epoch   3 | Loss: 3.9052 | Val acc@1 (X): 12.21% | acc@5: 12.21% | MRR: 12.45%
-✓ NEW BEST: 12.21%
-Epoch   4 | Loss: 3.7907 | Val acc@1 (X): 16.53% | acc@5: 16.59% | MRR: 16.76%
-✓ NEW BEST: 16.53%
-Epoch   5 | Loss: 3.7406 | Val acc@1 (X): 18.81% | acc@5: 18.96% | MRR: 19.08%
+Epoch   4 | Loss: 3.7901 | Val acc@1 (X): 16.41% | acc@5: 16.47% | MRR: 16.64%
+✓ NEW BEST: 16.41%
+Epoch   5 | Loss: 3.7410 | Val acc@1 (X): 18.81% | acc@5: 18.96% | MRR: 19.08%
 ✓ NEW BEST: 18.81%
-Epoch   6 | Loss: 3.7035 | Val acc@1 (X): 18.78% | acc@5: 18.93% | MRR: 19.05%
+Epoch   6 | Loss: 3.7030 | Val acc@1 (X): 18.69% | acc@5: 18.84% | MRR: 18.96%
+Epoch   7 | Loss: 3.6593 | Val acc@1 (X): 18.99% | acc@5: 19.14% | MRR: 19.26%
+✓ NEW BEST: 18.99%
+Epoch   8 | Loss: 3.5795 | Val acc@1 (X): 19.14% | acc@5: 19.29% | MRR: 19.43%
+✓ NEW BEST: 19.14%
+Epoch   9 | Loss: 3.4591 | Val acc@1 (X): 19.56% | acc@5: 19.74% | MRR: 19.83%
+✓ NEW BEST: 19.56%
+Epoch  10 | Loss: 3.3284 | Val acc@1 (X): 20.55% | acc@5: 26.18% | MRR: 20.98%
+✓ NEW BEST: 20.55%
+Epoch  11 | Loss: 3.2002 | Val acc@1 (X): 24.75% | acc@5: 30.47% | MRR: 25.16%
+✓ NEW BEST: 24.75%
+Epoch  12 | Loss: 3.0958 | Val acc@1 (X): 28.97% | acc@5: 34.64% | MRR: 29.38%
+✓ NEW BEST: 28.97%
+Epoch  13 | Loss: 2.9838 | Val acc@1 (X): 30.05% | acc@5: 36.14% | MRR: 30.48%
+✓ NEW BEST: 30.05%
+Epoch  14 | Loss: 2.8876 | Val acc@1 (X): 34.34% | acc@5: 40.73% | MRR: 34.81%
+✓ NEW BEST: 34.34%
+Epoch  15 | Loss: 2.7951 | Val acc@1 (X): 35.18% | acc@5: 41.51% | MRR: 35.64%
+✓ NEW BEST: 35.18%
+Epoch  16 | Loss: 2.7228 | Val acc@1 (X): 36.26% | acc@5: 42.59% | MRR: 36.70%
+✓ NEW BEST: 36.26%
+Epoch  17 | Loss: 2.6401 | Val acc@1 (X): 36.68% | acc@5: 42.47% | MRR: 37.12%
+✓ NEW BEST: 36.68%
+Epoch  18 | Loss: 2.5686 | Val acc@1 (X): 36.29% | acc@5: 42.38% | MRR: 36.76%
+Epoch  19 | Loss: 2.4919 | Val acc@1 (X): 36.47% | acc@5: 42.08% | MRR: 36.99%
+Epoch  20 | Loss: 2.4295 | Val acc@1 (X): 36.83% | acc@5: 42.89% | MRR: 37.33%
+✓ NEW BEST: 36.83%
+Epoch  21 | Loss: 2.3684 | Val acc@1 (X): 36.80% | acc@5: 43.28% | MRR: 37.35%
+Epoch  22 | Loss: 2.3057 | Val acc@1 (X): 37.73% | acc@5: 44.30% | MRR: 38.32%
+✓ NEW BEST: 37.73%
+Epoch  23 | Loss: 2.2483 | Val acc@1 (X): 36.59% | acc@5: 42.98% | MRR: 37.18%
+Epoch  24 | Loss: 2.2034 | Val acc@1 (X): 38.93% | acc@5: 46.37% | MRR: 39.65%
+✓ NEW BEST: 38.93%
+Epoch  25 | Loss: 2.1406 | Val acc@1 (X): 40.13% | acc@5: 46.76% | MRR: 40.77%
+✓ NEW BEST: 40.13%
+Epoch  26 | Loss: 2.0949 | Val acc@1 (X): 39.08% | acc@5: 46.19% | MRR: 39.81%
+Epoch  27 | Loss: 2.0431 | Val acc@1 (X): 39.53% | acc@5: 46.61% | MRR: 40.18%
+Epoch  28 | Loss: 1.9936 | Val acc@1 (X): 39.74% | acc@5: 45.95% | MRR: 40.48%
+Epoch  29 | Loss: 1.9415 | Val acc@1 (X): 37.64% | acc@5: 44.24% | MRR: 38.59%
+Epoch  30 | Loss: 1.8926 | Val acc@1 (X): 38.57% | acc@5: 45.56% | MRR: 39.35%
+Epoch  31 | Loss: 1.8542 | Val acc@1 (X): 38.57% | acc@5: 46.25% | MRR: 39.42%
+Epoch  32 | Loss: 1.8017 | Val acc@1 (X): 40.10% | acc@5: 48.80% | MRR: 41.14%
+Epoch  33 | Loss: 1.7659 | Val acc@1 (X): 38.99% | acc@5: 46.64% | MRR: 40.04%
+Epoch  34 | Loss: 1.7196 | Val acc@1 (X): 38.66% | acc@5: 45.32% | MRR: 39.43%
+Epoch  35 | Loss: 1.6767 | Val acc@1 (X): 39.29% | acc@5: 46.85% | MRR: 40.27%
+Epoch  36 | Loss: 1.6398 | Val acc@1 (X): 39.68% | acc@5: 46.43% | MRR: 40.52%
+Epoch  37 | Loss: 1.5995 | Val acc@1 (X): 38.72% | acc@5: 45.95% | MRR: 39.64%
+Epoch  38 | Loss: 1.5759 | Val acc@1 (X): 38.60% | acc@5: 46.22% | MRR: 39.56%
+Epoch  39 | Loss: 1.5271 | Val acc@1 (X): 39.50% | acc@5: 47.00% | MRR: 40.40%
+Epoch  40 | Loss: 1.4998 | Val acc@1 (X): 37.82% | acc@5: 45.71% | MRR: 39.07%
+Epoch  41 | Loss: 1.4825 | Val acc@1 (X): 39.95% | acc@5: 47.75% | MRR: 40.97%
+Epoch  42 | Loss: 1.4517 | Val acc@1 (X): 39.89% | acc@5: 48.17% | MRR: 40.86%
+Epoch  43 | Loss: 1.4246 | Val acc@1 (X): 38.24% | acc@5: 46.28% | MRR: 39.45%
+Epoch  44 | Loss: 1.3953 | Val acc@1 (X): 39.05% | acc@5: 46.43% | MRR: 39.95%
+Epoch  45 | Loss: 1.3663 | Val acc@1 (X): 37.61% | acc@5: 45.68% | MRR: 38.91%
+Epoch  46 | Loss: 1.3484 | Val acc@1 (X): 38.87% | acc@5: 46.88% | MRR: 39.99%
+Epoch  47 | Loss: 1.3202 | Val acc@1 (X): 39.65% | acc@5: 47.75% | MRR: 40.65%
+Epoch  48 | Loss: 1.3079 | Val acc@1 (X): 38.75% | acc@5: 46.94% | MRR: 39.91%
+Epoch  49 | Loss: 1.2780 | Val acc@1 (X): 38.90% | acc@5: 46.97% | MRR: 40.08%
+Epoch  50 | Loss: 1.2753 | Val acc@1 (X): 38.39% | acc@5: 46.88% | MRR: 39.47%
+Epoch  51 | Loss: 1.2519 | Val acc@1 (X): 37.43% | acc@5: 46.55% | MRR: 38.79%
+Epoch  52 | Loss: 1.2221 | Val acc@1 (X): 38.27% | acc@5: 45.56% | MRR: 39.24%
+Epoch  53 | Loss: 1.2030 | Val acc@1 (X): 38.54% | acc@5: 47.84% | MRR: 39.98%
+Epoch  54 | Loss: 1.1963 | Val acc@1 (X): 39.41% | acc@5: 47.87% | MRR: 40.56%
+Epoch  55 | Loss: 1.1710 | Val acc@1 (X): 38.51% | acc@5: 47.63% | MRR: 39.80%
+Early stopping at epoch 55

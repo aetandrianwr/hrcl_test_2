@@ -9,6 +9,7 @@ This is EXACTLY the same as the Advanced model but replaces:
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import math
 
 
